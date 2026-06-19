@@ -53,7 +53,6 @@ npm install
 npm run dev           # Vite client → http://localhost:5173
 ```
 
-The frontend expects the API at `http://localhost:3000` by default. To point it elsewhere, set `VITE_API_BASE_URL` (see [Environment Variables](#-environment-variables)).
 
 ---
 
