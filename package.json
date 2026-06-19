@@ -1,0 +1,12 @@
+{
+  "name": "workbench-rbac",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "shared"
+  ],
+  "dependencies": {
+    "zod": "^4.4.3"
+  }
+}
