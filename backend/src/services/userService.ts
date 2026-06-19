@@ -1,4 +1,4 @@
-import { usersStore, rolesStore } from '../stores/db';
+import { usersStore, rolesStore, persistData } from '../stores/db';
 import { User, ValidPermission } from '../../../shared/types';
 
 export class UserService {
@@ -15,6 +15,8 @@ export class UserService {
     
     user.roleIds = validRoleIds;
     usersStore.set(userId, user);
+
+    persistData(); // <-- Save to file
     return user;
   }
 

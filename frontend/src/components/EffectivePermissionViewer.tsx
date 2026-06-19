@@ -25,23 +25,29 @@ export function EffectivePermissionViewer({ user, permissions, roles, loading }:
   }, {} as Record<string, string[]>);
 
   return (
-    <div className="bg-slate-900 rounded-xl p-6 shadow-inner text-slate-200 min-h-[400px]">
-      <h3 className="text-white font-bold text-lg mb-1">{user.name}'s Access</h3>
-      <p className="text-sm text-slate-400 mb-6 pb-4 border-b border-slate-700">
-        Inherited from: <span className="text-blue-400 font-medium">{roles.length ? roles.join(', ') : 'No roles assigned'}</span>
+    // Changed to bg-white with a standard border and shadow
+    <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm text-slate-800 min-h-[400px]">
+      <h3 className="text-slate-900 font-bold text-lg mb-1">{user.name}'s Access</h3>
+      <p className="text-sm text-slate-500 mb-6 pb-4 border-b border-slate-100">
+        Roles: <span className="text-blue-600 font-medium">{roles.length ? roles.join(', ') : 'None'}</span>
       </p>
 
       {permissions.length === 0 ? (
-        <div className="text-red-400 p-4 bg-red-950/30 rounded border border-red-900/50">User has no permissions.</div>
+        // Changed to a light red warning box
+        <div className="text-red-600 p-4 bg-red-50 rounded border border-red-100 text-sm font-medium">
+          This user currently has zero access to the system.
+        </div>
       ) : (
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8">
           {Object.entries(grouped).map(([resource, actions]) => (
             <div key={resource}>
-              <h4 className="text-slate-50 font-semibold mb-2 uppercase text-xs tracking-wider">{resource}</h4>
+              {/* Changed headers to dark slate */}
+              <h4 className="text-slate-800 font-bold mb-2 uppercase text-xs tracking-widest">{resource}</h4>
               <ul className="space-y-1.5">
                 {actions.map(action => (
                   <li key={action} className="text-sm flex items-center gap-2">
-                    <span className="text-green-400">✓</span> <span className="capitalize text-slate-300">{action}</span>
+                    {/* Kept the green checkmark, changed text to standard slate */}
+                    <span className="text-green-500 font-bold">✓</span> <span className="capitalize text-slate-600 font-medium">{action}</span>
                   </li>
                 ))}
               </ul>

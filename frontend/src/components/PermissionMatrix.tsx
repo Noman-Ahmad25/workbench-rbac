@@ -14,9 +14,9 @@ export function PermissionMatrix({ selected, onChange }: Props) {
   };
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-slate-200 shadow-sm">
+    <div className="overflow-x-auto rounded-lg border border-slate-200 shadow-sm bg-white">
       <table className="w-full text-sm text-left">
-        <thead className="bg-slate-50 text-slate-600 font-semibold uppercase text-xs">
+        <thead className="bg-slate-50 text-slate-600 font-semibold text-xs uppercase tracking-wider">
           <tr>
             <th className="p-4 border-b">Resource</th>
             {ALL_ACTIONS.map(action => (
@@ -24,22 +24,21 @@ export function PermissionMatrix({ selected, onChange }: Props) {
             ))}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-slate-100">
+        <tbody className="divide-y divide-slate-100">
           {Object.entries(PERMISSION_MAP).map(([resource, actions]) => (
             <tr key={resource} className="hover:bg-slate-50 transition-colors">
               <td className="p-4 font-medium text-slate-800">{resource}</td>
               {ALL_ACTIONS.map(action => {
-                const isValidActionForResource = actions.includes(action as any);
+                const isValid = actions.includes(action);
                 const permString = `${resource}:${action}`;
-                
                 return (
                   <td key={action} className="p-4 text-center">
-                    {isValidActionForResource ? (
-                      <input 
+                    {isValid ? (
+                      <input
                         type="checkbox"
                         checked={selected.includes(permString)}
                         onChange={() => toggle(permString)}
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-slate-300"
+                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-slate-300 cursor-pointer"
                       />
                     ) : (
                       <span className="text-slate-300">-</span>

@@ -1,14 +1,10 @@
-import express, { type Response, type Request } from 'express';
+import express, { type Request, type Response } from 'express';
 import { RoleSchema } from '../../../shared/validators';
 import { RoleService } from '../services/roleServices';
 import { requirePermission } from '../middleware/auth';
+import { sendSuccess, sendError } from '../utils/response';
 
-// Best practice: Use express.Router() when separating routes into files
 export const router = express.Router();
-
-// Helper functions for consistent responses
-const sendSuccess = (res: Response, data: any) => res.json({ success: true, data });
-const sendError = (res: Response, status: number, error: string) => res.status(status).json({ success: false, error });
 
 // 1. GET ALL ROLES (Open to view)
 router.get('/api/roles', (req: Request, res: Response) => {
@@ -16,7 +12,6 @@ router.get('/api/roles', (req: Request, res: Response) => {
 });
 
 // 2. CREATE A ROLE (Protected by middleware)
-// Syntax: router.post(path, middleware, handler)
 router.post(
   '/api/roles', 
   requirePermission('Settings:update'), 
@@ -27,7 +22,8 @@ router.post(
       return sendError(res, 400, result.error.errors[0].message);
     }
     
-    sendSuccess(res, RoleService.create(result.data));
+    // Status 201 indicates a resource was successfully created
+    sendSuccess(res, RoleService.create(result.data), 201); 
   }
 );
 
